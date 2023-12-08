@@ -1,0 +1,27 @@
+.search-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input {
+    border: 1px solid black;
+}
+
+.results-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+.link {
+    margin-top: 20px;
+}
+
+.colour-list {
+    color: blue !important;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
