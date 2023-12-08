@@ -31,20 +31,14 @@ class ServiceRegistry:
         global activeServices
         if 'activeServices' not in variable_modified_times:
             # will need to fetch the data from backup 
-            try: 
-                getActiveServicesMain = "https://registry:4004/getList"
-                response = requests.get(getActiveServicesMain)
-                if response.status_code == 500:
-                        raise Exception("main registry failed")
-            except (requests.exceptions.ConnectionError, Exception) as e:
-                mainRegistryFailed = True
-            
-            if(not mainRegistryFailed):
-                activeServices = response.json()
-                getTime = "https://registry:4004/getTime"
-                response = requests.get(getTime)
-                if 'time' in response.json():
-                    variable_modified_times['activeServices'] = (response.json())['time']
+            getActiveServicesBackup = "http://backupregistry:4005/getList"
+            response = requests.get(getActiveServicesBackup)
+            activeServices = response.json()
+
+            getTime = "http://backupregistry:4005/getTime"
+            response = requests.get(getTime)
+            if 'time' in response.json():
+                variable_modified_times['activeServices'] = (response.json())['time']
                     
     @app.route('/getTime', methods=['GET'])
     def test(): 
